@@ -1,7 +1,13 @@
-import Button from '@mui/material/Button';
+import { Header } from "./components/header";
+import { Footer } from "./components/footer";
+import { Home } from "./pages/home";
 
 export function App() {
-    return (
-        <Button variant="contained">Hello world</Button>
-    )
+  return (
+    <>
+      <Header />
+      <Home />
+      <Footer />
+    </>
+  );
 }
