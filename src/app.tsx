@@ -1,13 +1,13 @@
-import { Header } from "./components/header";
-import { Footer } from "./components/footer";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./pages/home";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  }
+]);
+
 export function App() {
-  return (
-    <>
-      <Header />
-      <Home />
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
