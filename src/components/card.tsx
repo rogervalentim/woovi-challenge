@@ -25,13 +25,16 @@ export function Card({
   return (
     <Box
       component={"div"}
-      width={"26.81rem"}
       sx={{
+        width: "26.81rem",
         borderWidth: `${isChecked ? "2px 2px 2px 2px" : "0 2px 2px 2px"}`,
         borderStyle: "solid",
-        borderColor: `${isChecked ? "#03D69D" : "#E5E5E5"}`
+        borderColor: `${isChecked ? "#03D69D" : "#E5E5E5"}`,
+        padding: "1.25rem",
+        "@media (max-width: 420px)": {
+          width: "21.88rem"
+        }
       }}
-      padding={"1.25rem"}
     >
       <Box component={"div"} display={"flex"} justifyContent={"space-between"}>
         <Box component={"div"}>

@@ -24,8 +24,9 @@ export function Home() {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
+      paddingLeft={"1.25rem"}
+      paddingRight={"1.25rem"}
       flexDirection={"column"}
-      maxWidth={"100%"}
     >
       <Box component={"div"} paddingTop={"2.5rem"}>
         <Typography
@@ -63,7 +64,10 @@ export function Home() {
             width={"26.81rem"}
             borderRadius={"10px"}
             sx={{
-              border: `2px solid ${isChecked ? "#03D69D" : "#E5E5E5"}`
+              border: `2px solid ${isChecked ? "#03D69D" : "#E5E5E5"}`,
+              "@media (max-width: 420px)": {
+                width: "21.88rem"
+              }
             }}
             padding={"1.25rem"}
           >
@@ -179,7 +183,10 @@ export function Home() {
             width={"26.81rem"}
             borderRadius={" 0.63rem  0.63rem 0 0"}
             sx={{
-              border: `2px solid ${isCheckedInstallmentPix ? "#03D69D" : "#E5E5E5"}`
+              border: `2px solid ${isCheckedInstallmentPix ? "#03D69D" : "#E5E5E5"}`,
+              "@media (max-width: 420px)": {
+                width: "21.88rem"
+              }
             }}
             padding={"1.25rem"}
           >
