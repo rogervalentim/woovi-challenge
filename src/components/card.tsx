@@ -1,19 +1,22 @@
 import { Box, Checkbox, Typography } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { Circle, CircleCheck } from "lucide-react";
+import { InstallmentProps } from "../types";
 
 interface CardProps {
-  numberInstallment: string;
+  numberInstallment: number;
   price: string;
   total: string;
   bestInstallmentOption: boolean;
+  onSelect: (data: InstallmentProps) => void;
 }
 
 export function Card({
   numberInstallment,
   price,
   total,
-  bestInstallmentOption
+  bestInstallmentOption,
+  onSelect
 }: CardProps) {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -37,6 +40,7 @@ export function Card({
       paddingTop={" 1.25rem"}
       paddingX={"1.25rem"}
       paddingBottom={"1.25rem"}
+      margin={"-1px"}
     >
       <Box component={"div"} display={"flex"} justifyContent={"space-between"}>
         <Box component={"div"}>
@@ -46,7 +50,7 @@ export function Card({
             fontWeight={"800"}
             variant={"h2"}
           >
-            {numberInstallment}{" "}
+            {numberInstallment}x{" "}
             <Box
               component="span"
               fontWeight={"600"}
@@ -73,6 +77,7 @@ export function Card({
             }
             checked={isChecked}
             onChange={handleCheckboxChange}
+            onClick={() => onSelect({ numberInstallment, price, total })}
           />
         </Box>
       </Box>

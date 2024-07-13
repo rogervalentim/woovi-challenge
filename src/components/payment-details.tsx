@@ -8,7 +8,7 @@ interface PaymentDetailsProps {
 
 export function PaymentDetails({ paidOut }: PaymentDetailsProps) {
   return (
-    <>
+    <Box component={"section"}>
       <Box component={"div"} textAlign={"center"} marginTop={"1.25rem"}>
         <Box
           component={"p"}
@@ -169,6 +169,6 @@ export function PaymentDetails({ paidOut }: PaymentDetailsProps) {
           2c1b951f356c4680b13ba1c9fc889c47
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }

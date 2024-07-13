@@ -8,7 +8,7 @@ import { ChevronUp } from "lucide-react";
 
 export function AccordionComponent() {
   return (
-    <Accordion defaultExpanded sx={{ boxShadow: "none", padding: "1.25rem" }}>
+    <Accordion sx={{ boxShadow: "none", padding: "1.25rem" }}>
       <AccordionSummary
         expandIcon={<ChevronUp color="#4d4d4d" />}
         aria-controls="panel1-content"

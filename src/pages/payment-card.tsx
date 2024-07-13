@@ -9,7 +9,15 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { PaymentDetails } from "../components/payment-details";
-import { InstallmentProps } from "../types";
+
+interface FormData {
+  fullName: string;
+  cpf: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+  installments: string;
+}
 
 const currencies = [
   {
@@ -48,7 +56,7 @@ export function PaymentCard() {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = (data: InstallmentProps) => {
+  const onSubmit = (data: FormData) => {
     console.log(data);
   };
 

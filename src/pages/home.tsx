@@ -1,12 +1,14 @@
-import { Box, Badge, Checkbox } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { Card } from "../components/card";
+import { useNavigate } from "react-router-dom";
+import { Box, Badge, Checkbox, Typography } from "@mui/material";
 import { Circle, CircleCheck } from "lucide-react";
-import { ChangeEvent, useState } from "react";
+import { useState, ChangeEvent } from "react";
+import { Card } from "../components/card";
+import { InstallmentProps } from "../types";
 
 export function Home() {
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedInstallmentPix, setIsCheckedInstallmentPix] = useState(false);
+  const navigate = useNavigate();
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
@@ -16,6 +18,12 @@ export function Home() {
     event: ChangeEvent<HTMLInputElement>
   ) => {
     setIsCheckedInstallmentPix(event.target.checked);
+  };
+
+  const handleCardSelect = (data: InstallmentProps) => {
+    setTimeout(() => {
+      navigate("/payment-pix", { state: data });
+    }, 1000);
   };
 
   return (
@@ -37,13 +45,9 @@ export function Home() {
           João, como você quer pagar?
         </Typography>
       </Box>
-
       <Box component={"div"} paddingTop={"2rem"}>
         <Badge
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "left"
-          }}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
           badgeContent={"Pix"}
           sx={{
             "& .MuiBadge-badge": {
@@ -125,6 +129,13 @@ export function Home() {
                   }
                   checked={isChecked}
                   onChange={handleCheckboxChange}
+                  onClick={() =>
+                    handleCardSelect({
+                      numberInstallment: 1,
+                      price: "R$ 30.500,00",
+                      total: "R$ 30.500,00"
+                    })
+                  }
                 />
               </Box>
             </Box>
@@ -139,9 +150,7 @@ export function Home() {
               sx={{
                 clipPath:
                   "polygon(50.1% 0%, 100% 0%, 95.7% 51%, 100% 100%, 0% 100%, 0.1% 0%)",
-                "@media (max-width: 420px)": {
-                  paddingLeft: "0"
-                },
+                "@media (max-width: 420px)": { paddingLeft: "0" },
                 paddingLeft: "0.63rem"
               }}
             >
@@ -168,10 +177,7 @@ export function Home() {
 
       <Box component={"div"} paddingTop={"2rem"}>
         <Badge
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "left"
-          }}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
           badgeContent={"Pix Parcelado"}
           sx={{
             "& .MuiBadge-badge": {
@@ -244,6 +250,13 @@ export function Home() {
                   }
                   checked={isCheckedInstallmentPix}
                   onChange={handleCheckboxChangeInstallmentPix}
+                  onClick={() =>
+                    handleCardSelect({
+                      numberInstallment: 2,
+                      price: "R$ 15.300,00",
+                      total: "R$ 30.600,00"
+                    })
+                  }
                 />
               </Box>
             </Box>
@@ -253,34 +266,39 @@ export function Home() {
 
       <Box>
         <Card
-          numberInstallment={"3x"}
+          numberInstallment={3}
           price={"R$ 10.196,66"}
           total={"Total: R$ 30.620,00"}
           bestInstallmentOption={false}
+          onSelect={handleCardSelect}
         />
         <Card
-          numberInstallment={"4x"}
+          numberInstallment={4}
           price={"R$ 7.725,00"}
           total={"Total: R$ 30.900,00"}
           bestInstallmentOption={true}
+          onSelect={handleCardSelect}
         />
         <Card
-          numberInstallment={"5x"}
+          numberInstallment={5}
           price={"R$ 6.300,00"}
           total={"Total: R$ 31.500,00"}
           bestInstallmentOption={false}
+          onSelect={handleCardSelect}
         />
         <Card
-          numberInstallment={"6x"}
+          numberInstallment={6}
           price={"R$ 5.283,33"}
           total={"Total: R$ 31.699,98"}
           bestInstallmentOption={false}
+          onSelect={handleCardSelect}
         />
         <Card
-          numberInstallment={"7x"}
+          numberInstallment={7}
           price={"R$ 4.542,85"}
           total={"Total: R$ 31.800,00"}
           bestInstallmentOption={false}
+          onSelect={handleCardSelect}
         />
       </Box>
     </Box>
