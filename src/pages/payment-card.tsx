@@ -5,7 +5,11 @@ import {
   FormControl,
   MenuItem
 } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { PaymentDetails } from "../components/payment-details";
+import { InstallmentProps } from "../types";
 
 const currencies = [
   {
@@ -26,7 +30,28 @@ const currencies = [
   }
 ];
 
+const schema = yup.object().shape({
+  fullName: yup.string().required("Nome completo é obrigatório"),
+  cpf: yup.string().required("CPF é obrigatório"),
+  cardNumber: yup.string().required("Número do cartão é obrigatório"),
+  expiry: yup.string().required("Vencimento é obrigatório"),
+  cvv: yup.string().required("CVV é obrigatório"),
+  installments: yup.string().required("Parcelas é obrigatório")
+});
+
 export function PaymentCard() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
+  });
+
+  const onSubmit = (data: InstallmentProps) => {
+    console.log(data);
+  };
+
   return (
     <Box
       component={"section"}
@@ -61,187 +86,238 @@ export function PaymentCard() {
         gap={"1.75rem"}
         marginTop={"1.75rem"}
         width="100%"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <FormControl sx={{ width: "100%" }}>
-          <TextField
-            label="Nome completo"
-            variant="outlined"
-            fullWidth
-            sx={{
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#03D69D"
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "transparent"
-                },
-                "&:hover fieldset": {
-                  borderColor: "transparent"
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#03D69D"
-                },
-                borderRadius: "0.50rem",
-                border: "2px #E5E5E5 solid",
-                padding: "1.25rem",
-                width: "100%",
-                height: "4.06rem"
-              }
-            }}
+          <Controller
+            name="fullName"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Nome completo"
+                variant="outlined"
+                fullWidth
+                error={!!errors.fullName}
+                helperText={errors.fullName ? errors.fullName.message : ""}
+                sx={{
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#03D69D"
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "2px #E5E5E5 solid"
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "transparent"
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#03D69D"
+                    },
+                    borderRadius: "0.50rem",
+                    padding: "1.25rem",
+                    width: "100%",
+                    height: "4.06rem"
+                  }
+                }}
+              />
+            )}
           />
         </FormControl>
 
         <FormControl sx={{ width: "100%" }}>
-          <TextField
-            label="CPF"
-            variant="outlined"
-            fullWidth
-            sx={{
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#03D69D"
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "transparent"
-                },
-                "&:hover fieldset": {
-                  borderColor: "transparent"
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#03D69D"
-                },
-                borderRadius: "0.50rem",
-                border: "2px #E5E5E5 solid",
-                padding: "1.25rem",
-                width: "100%",
-                height: "4.06rem"
-              }
-            }}
+          <Controller
+            name="cpf"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="CPF"
+                variant="outlined"
+                fullWidth
+                error={!!errors.cpf}
+                helperText={errors.cpf ? errors.cpf.message : ""}
+                sx={{
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#03D69D"
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "2px #E5E5E5 solid"
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "transparent"
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#03D69D"
+                    },
+                    borderRadius: "0.50rem",
+                    padding: "1.25rem",
+                    width: "100%",
+                    height: "4.06rem"
+                  }
+                }}
+              />
+            )}
           />
         </FormControl>
 
         <FormControl sx={{ width: "100%" }}>
-          <TextField
-            label="Número do cartão"
-            variant="outlined"
-            fullWidth
-            sx={{
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#03D69D"
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "transparent"
-                },
-                "&:hover fieldset": {
-                  borderColor: "transparent"
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#03D69D"
-                },
-                borderRadius: "0.50rem",
-                border: "2px #E5E5E5 solid",
-                padding: "1.25rem",
-                width: "100%",
-                height: "4.06rem"
-              }
-            }}
+          <Controller
+            name="cardNumber"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Número do cartão"
+                variant="outlined"
+                fullWidth
+                error={!!errors.cardNumber}
+                helperText={errors.cardNumber ? errors.cardNumber.message : ""}
+                sx={{
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#03D69D"
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "2px #E5E5E5 solid"
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "transparent"
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#03D69D"
+                    },
+                    borderRadius: "0.50rem",
+                    padding: "1.25rem",
+                    width: "100%",
+                    height: "4.06rem"
+                  }
+                }}
+              />
+            )}
           />
         </FormControl>
 
         <Box sx={{ width: "100%", display: " flex", gap: " 1.38rem" }}>
           <FormControl sx={{ width: "100%" }}>
-            <TextField
-              label="Vencimento"
-              variant="outlined"
-              fullWidth
-              sx={{
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#03D69D"
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "transparent"
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "transparent"
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#03D69D"
-                  },
-                  borderRadius: "0.50rem",
-                  border: "2px #E5E5E5 solid",
-                  padding: "1.25rem",
-                  width: "100%",
-                  height: "4.06rem"
-                }
-              }}
+            <Controller
+              name="expiry"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Vencimento"
+                  variant="outlined"
+                  fullWidth
+                  error={!!errors.expiry}
+                  helperText={errors.expiry ? errors.expiry.message : ""}
+                  sx={{
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#03D69D"
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        border: "2px #E5E5E5 solid"
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "transparent"
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#03D69D"
+                      },
+                      borderRadius: "0.50rem",
+                      padding: "1.25rem",
+                      width: "100%",
+                      height: "4.06rem"
+                    }
+                  }}
+                />
+              )}
             />
           </FormControl>
           <FormControl sx={{ width: "100%" }}>
-            <TextField
-              label="CVV"
-              variant="outlined"
-              fullWidth
-              sx={{
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#03D69D"
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "transparent"
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "transparent"
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#03D69D"
-                  },
-                  borderRadius: "0.50rem",
-                  border: "2px #E5E5E5 solid",
-                  padding: "1.25rem",
-                  width: "100%",
-                  height: "4.06rem"
-                }
-              }}
+            <Controller
+              name="cvv"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="CVV"
+                  variant="outlined"
+                  fullWidth
+                  error={!!errors.cvv}
+                  helperText={errors.cvv ? errors.cvv.message : ""}
+                  sx={{
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#03D69D"
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        border: "2px #E5E5E5 solid"
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "transparent"
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#03D69D"
+                      },
+                      borderRadius: "0.50rem",
+                      padding: "1.25rem",
+                      width: "100%",
+                      height: "4.06rem"
+                    }
+                  }}
+                />
+              )}
             />
           </FormControl>
         </Box>
 
         <FormControl sx={{ width: "100%" }}>
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="Parcelas"
-            defaultValue="1x de R$ 15.300,00"
-            sx={{
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "#03D69D"
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "transparent"
-                },
-                "&:hover fieldset": {
-                  borderColor: "transparent"
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#03D69D"
-                },
-                borderRadius: "0.50rem",
-                border: "2px #E5E5E5 solid",
-                padding: "1.25rem",
-                width: "100%",
-                height: "4.06rem"
-              }
-            }}
-          >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          <Controller
+            name="installments"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                id="outlined-select-currency"
+                select
+                label="Parcelas"
+                defaultValue="1x de R$ 15.300,00"
+                error={!!errors.installments}
+                helperText={
+                  errors.installments ? errors.installments.message : ""
+                }
+                sx={{
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#03D69D"
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "2px #E5E5E5 solid"
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "transparent"
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#03D69D"
+                    },
+                    borderRadius: "0.50rem",
+                    padding: "1.25rem",
+                    width: "100%",
+                    height: "4.06rem"
+                  }
+                }}
+              >
+                {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
         </FormControl>
 
         <FormControl sx={{ width: "100%" }}>
@@ -254,6 +330,12 @@ export function PaymentCard() {
             fontWeight={"600"}
             fontSize={"1.13rem"}
             border={"none"}
+            type="submit"
+            sx={{
+              "&:hover": {
+                bgcolor: "#114e97"
+              }
+            }}
           >
             Pagar
           </Box>
