@@ -7,7 +7,10 @@ import { PaymentDetails } from "../components/payment-details";
 
 export function PaymentPix() {
   return (
-    <Box component={"section"} paddingLeft={"1.13rem"} paddingRight={"1.19rem"}>
+    <Box
+      component={"section"}
+      sx={{ paddingLeft: "1.13rem", paddingRight: "1.19rem" }}
+    >
       <Box
         display={"flex"}
         justifyContent={"center"}

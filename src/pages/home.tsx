@@ -24,8 +24,7 @@ export function Home() {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
-      paddingLeft={"1.25rem"}
-      paddingRight={"1.25rem"}
+      sx={{ paddingX: "1.25rem", width: "100%" }}
       flexDirection={"column"}
     >
       <Box component={"div"} paddingTop={"2.5rem"}>
