@@ -83,7 +83,7 @@ export function PaymentPix() {
         </Box>
       </Box>
 
-      <PaymentDetails />
+      <PaymentDetails paidOut={true} />
     </Box>
   );
 }

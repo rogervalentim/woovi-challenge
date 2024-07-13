@@ -25,16 +25,18 @@ export function Card({
   return (
     <Box
       component={"div"}
+      width={"26.81rem"}
       sx={{
-        width: "26.81rem",
-        borderWidth: `${isChecked ? "2px 2px 2px 2px" : "0 2px 2px 2px"}`,
-        borderStyle: "solid",
-        borderColor: `${isChecked ? "#03D69D" : "#E5E5E5"}`,
-        padding: "1.25rem",
+        border: `2px solid ${isChecked ? "#03D69D" : "#E5E5E5"}`,
         "@media (max-width: 420px)": {
-          width: "21.88rem"
+          width: "21.88rem",
+          paddingX: "0.63rem"
         }
       }}
+      height={"auto"}
+      paddingTop={" 1.25rem"}
+      paddingX={"1.25rem"}
+      paddingBottom={"1.25rem"}
     >
       <Box component={"div"} display={"flex"} justifyContent={"space-between"}>
         <Box component={"div"}>
@@ -78,12 +80,19 @@ export function Card({
         <Box
           component={"div"}
           bgcolor={"#133A6F"}
-          padding={"0.5rem"}
           marginTop={"0.25rem"}
           borderRadius={"0.25rem"}
+          height={"2.06rem"}
+          display={"flex"}
+          alignItems={"center"}
           sx={{
             clipPath:
-              "polygon(0% 0%, 100% 0%, 95.1% 47%, 100% 100%, 50.2% 100%, 0% 100%)"
+              "polygon(50.1% 0%, 100% 0%, 95.7% 51%, 100% 100%, 0% 100%, 0.1% 0%)",
+            "@media (max-width: 420px)": {
+              paddingLeft: "0",
+              fontSize: "5px"
+            },
+            paddingLeft: "0.63rem"
           }}
         >
           <Box
@@ -91,6 +100,12 @@ export function Card({
             color={"#ffffff"}
             fontSize={"1rem"}
             fontWeight={800}
+            sx={{
+              "@media (max-width:420px)": {
+                fontSize: "0.88rem",
+                paddingLeft: "1.00rem"
+              }
+            }}
           >
             -3% de juros:{" "}
             <Box
@@ -98,6 +113,11 @@ export function Card({
               color={"#FFFFFF"}
               fontSize={"1rem"}
               fontWeight={600}
+              sx={{
+                "@media (max-width:420px)": {
+                  fontSize: "0.88rem"
+                }
+              }}
             >
               Melhor opção de parcelamento
             </Box>

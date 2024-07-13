@@ -2,7 +2,11 @@ import { Box, Checkbox, Divider } from "@mui/material";
 import { Circle, CircleCheck } from "lucide-react";
 import { AccordionComponent } from "./accordion-component";
 
-export function PaymentDetails() {
+interface PaymentDetailsProps {
+  paidOut: boolean;
+}
+
+export function PaymentDetails({ paidOut }: PaymentDetailsProps) {
   return (
     <>
       <Box component={"div"} textAlign={"center"} marginTop={"1.25rem"}>
@@ -39,11 +43,21 @@ export function PaymentDetails() {
           >
             <Box display={"flex"} flexDirection={"row"} gap={"0.50rem"}>
               <Checkbox
-                icon={<Circle color="#E5E5E5" size="1.00rem" />}
+                icon={
+                  <Circle
+                    color={paidOut ? "#03D69D" : "#E5E5E5"}
+                    size="1.00rem"
+                  />
+                }
                 checkedIcon={
-                  <CircleCheck color="#FFFFFF" fill="#03D69D" size="1.00rem" />
+                  <CircleCheck
+                    color="#FFFFFF"
+                    fill={paidOut ? "#03D69D" : "transparent"}
+                    size="1.00rem"
+                  />
                 }
                 sx={{ padding: "0" }}
+                disabled
               />
               <Box
                 component="p"

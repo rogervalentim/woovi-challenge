@@ -22,7 +22,7 @@ export function AccordionComponent() {
           Como funciona?
         </Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails color={"#AFAFAF"}>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea nemo nihil
         numquam ipsa blanditiis, et officia cumque iste quasi! Fugiat unde at
         nemo accusamus vel modi magni possimus quis placeat?

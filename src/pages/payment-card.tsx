@@ -260,7 +260,7 @@ export function PaymentCard() {
         </FormControl>
       </Box>
 
-      <PaymentDetails />
+      <PaymentDetails paidOut={true} />
     </Box>
   );
 }
