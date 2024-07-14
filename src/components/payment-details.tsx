@@ -1,12 +1,77 @@
-import { Box, Checkbox, Divider } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { Circle, CircleCheck } from "lucide-react";
 import { AccordionComponent } from "./accordion-component";
+import { InstallmentProps } from "../types";
+import { usePayment } from "../context/use-payment";
 
-interface PaymentDetailsProps {
-  paidOut: boolean;
-}
+export function PaymentDetails({ paidOut }: InstallmentProps) {
+  const { paymentData } = usePayment();
 
-export function PaymentDetails({ paidOut }: PaymentDetailsProps) {
+  const renderInstallments = () => {
+    const installments = [];
+
+    installments.push(
+      <Box
+        key={1}
+        component="div"
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        className="installment"
+      >
+        <Box
+          display="flex"
+          flexDirection="row"
+          gap="0.50rem"
+          alignItems="center"
+        >
+          {paidOut ? (
+            <CircleCheck fill="#03D69D" color="#FFFFFF" size=" 1.13rem" />
+          ) : (
+            <Circle color="#03D69D" size=" 1.13rem" />
+          )}
+          <Typography fontWeight="600" fontSize="1.13rem" color="#4D4D4D">
+            1ª entrada no Pix
+          </Typography>
+        </Box>
+        <Typography fontWeight="800" fontSize="1.13rem" color="#4D4D4D">
+          {paymentData.price}
+        </Typography>
+      </Box>
+    );
+
+    for (let i = 2; i <= paymentData.numberInstallment; i++) {
+      installments.push(
+        <Box
+          key={i}
+          component="div"
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          marginTop="1.25rem"
+          className="installment"
+        >
+          <Box
+            display="flex"
+            flexDirection="row"
+            gap="0.50rem"
+            alignItems="center"
+          >
+            <Circle color="#E5E5E5" size="1.00rem" />
+            <Typography fontWeight="600" fontSize="1.13rem" color="#4D4D4D">
+              {i}ª no cartão
+            </Typography>
+          </Box>
+          <Typography fontWeight="800" fontSize="1.13rem" color="#4D4D4D">
+            {paymentData.price}
+          </Typography>
+        </Box>
+      );
+    }
+
+    return installments;
+  };
+
   return (
     <Box component={"section"}>
       <Box component={"div"} textAlign={"center"} marginTop={"1.25rem"}>
@@ -31,94 +96,13 @@ export function PaymentDetails({ paidOut }: PaymentDetailsProps) {
 
       <Box component="div" marginTop="1.25rem">
         <Box
-          display={"flex"}
-          flexDirection={"column"}
-          paddingLeft={"1.13rem"}
-          paddingRight={"1.19rem"}
+          component="div"
+          display="flex"
+          flexDirection="column"
+          paddingLeft="1.13rem"
+          paddingRight="1.19rem"
         >
-          <Box
-            component="div"
-            display={"flex"}
-            justifyContent={"space-between"}
-          >
-            <Box display={"flex"} flexDirection={"row"} gap={"0.50rem"}>
-              <Checkbox
-                icon={
-                  <Circle
-                    color={paidOut ? "#03D69D" : "#E5E5E5"}
-                    size="1.00rem"
-                  />
-                }
-                checkedIcon={
-                  <CircleCheck
-                    color="#FFFFFF"
-                    fill={paidOut ? "#03D69D" : "transparent"}
-                    size="1.00rem"
-                  />
-                }
-                sx={{ padding: "0" }}
-                disabled
-              />
-              <Box
-                component="p"
-                fontWeight={"600"}
-                fontSize={"1.13rem"}
-                color={"#4D4D4D"}
-              >
-                1ª entrada no Pix
-              </Box>
-            </Box>
-            <Box
-              component="p"
-              fontWeight={"800"}
-              fontSize={"1.13rem"}
-              color={"#4D4D4D"}
-            >
-              R$ 15.300,00{" "}
-            </Box>
-          </Box>
-
-          <Divider
-            sx={{
-              borderLeft: "2px solid #E5E5E5",
-              height: "1.6rem",
-              width: "2px",
-              marginLeft: "6px"
-            }}
-            flexItem
-          />
-
-          <Box
-            component="div"
-            display={"flex"}
-            justifyContent={"space-between"}
-          >
-            <Box display={"flex"} flexDirection={"row"} gap={"0.50rem"}>
-              <Checkbox
-                icon={<Circle color="#E5E5E5" size="1.00rem" />}
-                checkedIcon={
-                  <CircleCheck color="#FFFFFF" fill="#03D69D" size="1.00rem" />
-                }
-                sx={{ padding: "0" }}
-              />
-              <Box
-                component="p"
-                fontWeight={"600"}
-                fontSize={"1.13rem"}
-                color={"#4D4D4D"}
-              >
-                2ª no cartão
-              </Box>
-            </Box>
-            <Box
-              component="p"
-              fontWeight={"800"}
-              fontSize={"1.13rem"}
-              color={"#4D4D4D"}
-            >
-              R$ 15.300,00{" "}
-            </Box>
-          </Box>
+          {renderInstallments()}
         </Box>
       </Box>
 
@@ -137,7 +121,7 @@ export function PaymentDetails({ paidOut }: PaymentDetailsProps) {
           CET: 0,5%
         </Box>
         <Box component={"p"} fontWeight={"600"} fontSize={"1.13rem"}>
-          Total: R$ 30.600,00
+          {paymentData.total}
         </Box>
       </Box>
 

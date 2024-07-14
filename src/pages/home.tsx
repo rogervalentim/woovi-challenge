@@ -4,10 +4,12 @@ import { Circle, CircleCheck } from "lucide-react";
 import { useState, ChangeEvent } from "react";
 import { Card } from "../components/card";
 import { InstallmentProps } from "../types";
+import { usePayment } from "../context/use-payment";
 
 export function Home() {
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedInstallmentPix, setIsCheckedInstallmentPix] = useState(false);
+  const { setPaymentData } = usePayment();
   const navigate = useNavigate();
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +23,7 @@ export function Home() {
   };
 
   const handleCardSelect = (data: InstallmentProps) => {
+    setPaymentData(data);
     setTimeout(() => {
       navigate("/payment-pix", { state: data });
     }, 1000);
