@@ -34,7 +34,7 @@ This application was developed to provide a smooth and transparent payment exper
 Installation via npm:
 
 ```bash
-  git clone "https://github.com/rogervalentim/ifood-fsw.git"
+  git clone "https://github.com/rogervalentim/woovi-challenge.git"
   cd woovi-challenge
   npm install
 ```
