@@ -23,9 +23,10 @@ export function AccordionComponent() {
         </Typography>
       </AccordionSummary>
       <AccordionDetails color={"#AFAFAF"}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea nemo nihil
-        numquam ipsa blanditiis, et officia cumque iste quasi! Fugiat unde at
-        nemo accusamus vel modi magni possimus quis placeat?
+        o pagamento de uma entrada através do Pix. Ele exibe um código QR para
+        facilitar o pagamento, oferecendo uma maneira rápida e segura de
+        completar a transação. Após o pagamento ser efetuado, o usuário pode ser
+        redirecionado para o pagamento parcelado com cartão, se aplicável
       </AccordionDetails>
     </Accordion>
   );

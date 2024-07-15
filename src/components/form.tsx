@@ -2,8 +2,10 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Box, FormControl, MenuItem, TextField } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { usePayment } from "../context/use-payment";
+import { useNavigate } from "react-router-dom";
+import { CardPaid } from "./card-paid";
 
 interface FormData {
   fullName: string;
@@ -15,6 +17,9 @@ interface FormData {
 }
 
 export function Form() {
+  const [alert, setAlert] = useState(false);
+
+  const navigate = useNavigate();
   const { paymentData } = usePayment();
 
   const schema = yup.object().shape({
@@ -34,8 +39,36 @@ export function Form() {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const selectedInstallments = parseInt(data.installments);
+      const paymentPromises = [];
+
+      for (let i = 0; i < selectedInstallments; i++) {
+        paymentPromises.push(fakePaymentAPI());
+        setAlert(true);
+      }
+
+      await Promise.all(paymentPromises);
+
+      navigate("/");
+      console.log(data);
+    } catch (error) {
+      console.error("Erro ao processar pagamento:", error);
+    }
+  };
+
+  const fakePaymentAPI = async () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const random = Math.random();
+        if (random < 0.8) {
+          resolve("Pagamento aprovado");
+        } else {
+          reject("Erro ao processar o pagamento");
+        }
+      }, 3500);
+    });
   };
 
   const handleCpfChange = (
@@ -62,13 +95,12 @@ export function Form() {
     event.target.value = formattedValue;
   };
 
-  const installmentOptions = Array.from(
-    { length: paymentData.numberInstallment - 1 },
-    (_, i) => ({
-      value: `${i + 1}`,
-      label: `${i + 1}x de R$ ${paymentData.price}`
-    })
-  );
+  const installmentOptions = [
+    {
+      value: `${paymentData.numberInstallment - 1}`,
+      label: `${paymentData.numberInstallment - 1}x de R$ ${paymentData.price}`
+    }
+  ];
 
   return (
     <Box
@@ -293,7 +325,7 @@ export function Form() {
               id="outlined-select-currency"
               select
               label="Parcelas"
-              defaultValue="1x de R$ 15.300,00"
+              defaultValue={`${paymentData.numberInstallment}x de R$ ${paymentData.price}`}
               error={!!errors.installments}
               helperText={
                 errors.installments ? errors.installments.message : ""
@@ -319,11 +351,12 @@ export function Form() {
                 }
               }}
             >
-              {installmentOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
+              <MenuItem
+                key={installmentOptions[0].value}
+                value={installmentOptions[0].value}
+              >
+                {installmentOptions[0].label}
+              </MenuItem>
             </TextField>
           )}
         />
@@ -340,6 +373,7 @@ export function Form() {
           fontSize={"1.13rem"}
           border={"none"}
           type="submit"
+          onClick={handleSubmit(onSubmit)}
           sx={{
             "&:hover": {
               bgcolor: "#114e97"
@@ -349,6 +383,7 @@ export function Form() {
           Pagar
         </Box>
       </FormControl>
+      {alert && <CardPaid />}
     </Box>
   );
 }
